@@ -1,5 +1,7 @@
 <template>
   <view>
+    <my-search @click="gotoSearch"></my-search>
+
     <view class="scroll-view-container">
       <scroll-view :style="{height: wh + 'px'}" class="left-scroll-view" scroll-y="true">
         <block v-for="(item,i) in cateList" :key="i">
@@ -25,7 +27,10 @@
 </template>
 
 <script>
+import MySearch from "../../components/my-search/my-search.vue";
+
 export default {
+  components: {MySearch},
   data() {
     return {
       wh: 0,
@@ -37,7 +42,7 @@ export default {
   },
   onLoad() {
     const sysInfo = uni.getSystemInfoSync();
-    this.wh = sysInfo.windowHeight;
+    this.wh = sysInfo.windowHeight - 50;
 
     this.getCateList();
   },
@@ -59,6 +64,11 @@ export default {
     gotoGoodsList(item) {
       uni.navigateTo({
         url: '/subpkg/goods_list/goods_list?cid=' + item.cat_id
+      })
+    },
+    gotoSearch() {
+      uni.navigateTo({
+        url: '/subpkg/search/search'
       })
     }
   }
