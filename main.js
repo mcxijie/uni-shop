@@ -1,7 +1,7 @@
+//这个文件不能优化import
 import App from './App'
 // #ifndef VUE3
-// #ifdef VUE3
-import Vue, {createSSRApp} from 'vue'
+import Vue from 'vue'
 
 import {$http} from '@escook/request-miniprogram'
 
@@ -36,6 +36,9 @@ const app = new Vue({
 })
 app.$mount()
 // #endif
+
+// #ifdef VUE3
+import {createSSRApp} from 'vue'
 export function createApp() {
     const app = createSSRApp(App)
     return {
