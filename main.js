@@ -1,9 +1,9 @@
+import App from './App'
 // #ifndef VUE3
 // #ifdef VUE3
 import Vue, {createSSRApp} from 'vue'
-import App from './App'
+
 import {$http} from '@escook/request-miniprogram'
-import App from './App.vue'
 
 uni.$http = $http
 
@@ -36,7 +36,6 @@ const app = new Vue({
 })
 app.$mount()
 // #endif
-
 export function createApp() {
     const app = createSSRApp(App)
     return {
