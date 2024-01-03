@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mcxijie/uni-shop#readme",
   "dependencies": {
     "@escook/request-miniprogram": "^0.2.1",
-    "vue": "^3.4.3"
+    "vue": "^3.4.3",
+    "vuex": "^4.1.0"
   }
 }

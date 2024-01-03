@@ -1,23 +1,36 @@
 <template>
   <view class="goods-item">
     <view class="goods-item-left">
+      <radio v-if="showRadio" :checked="goods.goods_state" color="#C00000" @click="radioClickHandler"></radio>
       <image :src="goods.goods_small_logo || defaultPic" class="goods-pic"></image>
     </view>
     <view class="goods-item-right">
       <view class="goods-name">{{ goods.goods_name }}</view>
       <view class="goods-info-box">
         <view class="goods-price">￥{{ goods.goods_price | toFixed }}</view>
+        <uni-number-box v-if="showNum" :min="1" :value="goods.goods_count" @change="numChangeHandler"></uni-number-box>
       </view>
     </view>
   </view>
 </template>
 
 <script>
+import UniNumberBox from "../../uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue";
+
 export default {
+  components: {UniNumberBox},
   props: {
     goods: {
       type: Object,
       default: {}
+    },
+    showRadio: {
+      type: Boolean,
+      default: false
+    },
+    showNum: {
+      type: Boolean,
+      default: false
     }
   },
   name: "my-goods",
@@ -31,6 +44,20 @@ export default {
       return Number(num).toFixed(2);
     }
   },
+  methods: {
+    radioClickHandler() {
+      this.$emit('radio-change', {
+        goods_id: this.goods.goods_id,
+        goods_state: !this.goods.goods_state
+      })
+    },
+    numChangeHandler(val) {
+      this.$emit('num-change', {
+        goods_id: this.goods.goods_id,
+        goods_count: +val
+      })
+    }
+  }
 }
 </script>
 
@@ -43,6 +70,9 @@ export default {
 
   .goods-item-left {
     margin-right: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .goods-pic {
       width: 100px;
@@ -53,6 +83,7 @@ export default {
 
   .goods-item-right {
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-between;
 
@@ -61,6 +92,9 @@ export default {
     }
 
     .goods-info-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       .goods-price {
         color: #C00000;
         font-size: 16px;
