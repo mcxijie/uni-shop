@@ -14,6 +14,13 @@ $http.beforeRequest = function (options) {
     uni.showLoading({
         title: '数据加载中...',
     })
+
+    if (options.url.indexOf('/my/') !== -1) {
+        options.header = {
+            Authorization: store.state.m_user.token
+        }
+
+    }
 }
 
 $http.afterRequest = function () {
@@ -41,6 +48,7 @@ app.$mount()
 
 // #ifdef VUE3
 import {createSSRApp} from 'vue'
+
 export function createApp() {
     const app = createSSRApp(App)
     return {
